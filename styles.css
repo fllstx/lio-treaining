@@ -1,6 +1,22 @@
 * {
     color: purple;
+    background-color: darkgray;
   }
-  header {
+
+
+  button {
+    background-position-x: 0.25rem;
     font-size: 36px;
+    height: 100px;
+    width: 250px;
+    border-radius: 1000px;
+    background-color: aquamarine;
+    text-align: center;
+    align-self: center;
+
+    transition: 0.5s;
+  }
+
+  button:hover {
+    width: 300px;
   }
