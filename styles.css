@@ -1,22 +1,71 @@
 * {
     color: purple;
     background-color: darkgray;
+  text-decoration: none;
+  font-family: Arial;
   }
 
 
-  button {
-    background-position-x: 0.25rem;
+
+  .home {
     font-size: 36px;
     height: 100px;
     width: 250px;
     border-radius: 1000px;
     background-color: aquamarine;
     text-align: center;
-    align-self: center;
 
     transition: 0.5s;
   }
 
-  button:hover {
+  .home:hover {
     width: 300px;
+  }
+
+  nav{
+    width: 100%;
+    height: 100px;
+    background-color: #fff;
+  }
+
+  .menu{
+    margin: 0;
+    padding: 0;
+
+  }
+
+  .menu li{
+    list-style: none;
+    display: inline-block;
+    float: left;
+
+  }
+
+  .menu li a{
+    font-size: 24px;
+    color: darkslategray;
+    padding: 0 20px;
+
+  }
+
+  .start {
+    list-style: none;
+    
+  }
+
+  .knopf{ 
+    font-size: 28px;
+    height: 100px;
+    width: 250px;
+    border-radius: 1000px;
+    background-color: rgb(189, 157, 15);
+    text-align: center;
+    display: block;
+
+    transition: 0.5s;
+  }
+
+  .knopf:hover {
+    width: 300px;
+    color: blue;
   }
