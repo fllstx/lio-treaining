@@ -218,4 +218,54 @@ display: flex;
     padding: 10px 20px 10px 20px;
     background-color: blue;
     box-shadow: 0 0 10px 0 black;
+
+    transition: 0.5s;
+}
+
+.Antworttext:hover{
+  color: black;
+  transform: scale(1.1);
+
+}
+
+.win{
+  margin: 100px 400px 100px 400px;
+  background-color: blue;
+  text-align: center;
+
+  animation: spin 1.5s;
+}
+
+@keyframes spin {
+  0%{
+    margin: 100px 400px 100px 400px;
+    border-radius: 0;
+
+  }
+  33%{
+    margin: 100px 400px 100px 400px;
+    border-radius: 100%;
+  }
+
+  66%{
+    margin: 100px 400px 100px 400px;
+    border-radius: 0;
+
+  }
+  100%{
+    margin: 100px 400px 100px 400px;
+    border-radius: 100%;
+  }
+}
+
+.footer{
+  background-color: rgba(169, 169, 169, 0.5);
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.footer .text{
+  padding: 0 20px;
 }
