@@ -1,3 +1,5 @@
+/* allgemein*/
+
 * {
     color: white;
   text-decoration: none;
@@ -17,7 +19,8 @@
     background-size: cover;
     background-attachment: fixed;
     }
-
+/*allgemein*/
+/*header*/
 
 
   .home {
@@ -79,6 +82,9 @@
 
   }
 
+  /*header*/
+  /*home*/
+
   .start {
     color: black;
     list-style: none;
@@ -108,7 +114,8 @@
     color: white;
     background-color: blue;
   }
-
+/*home*/
+/*footer*/
   footer{
     background-color: rgba(169, 169, 169, 0.5);
     height: 100px;
@@ -120,4 +127,40 @@
   footer.text{
     padding: 0 20px;
   }
+  /*footer*/
   
+  /*nope*/
+.nopetry{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px;
+  border-radius: 1000px;
+  width: 150px;
+  background-color: red;
+
+  transition: 0.5s;
+}
+
+.nopetry:hover{
+  transform: scale(1.1);
+  background-color: lightgreen;
+}
+
+.nopetext{
+  display: flex;
+  justify-content: center;
+}
+
+.nopegif{
+  padding: 0 0 20px;
+}
+
+
+.nopemain{
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 400px;
+}
+/*nope*/
