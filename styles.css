@@ -26,7 +26,7 @@
   .home {
     color: black;
     font-size: 36px;
-    height: 50px;
+    line-height: 50px;
     width: 150px;
     border-radius: 1000px;
     box-shadow: none;
@@ -96,11 +96,10 @@
     justify-content: center;
     text-align: center;
     width: 50%;
-    margin: 100px 0 100px 0;
     border-radius: 1000px;
     background-color: lightgreen;
     font-size: 28px;
-    height: 100px;
+    line-height: 100px;
     width: 250px;
     transition: 0.5s;
   }
@@ -109,7 +108,7 @@
     color: black;
     font-size: 28px;
     height: 100px;
-    width: 250px;
+    line-height: 250px;
     border-radius: 1000px;
     background-color: lightgreen;
     text-align: center;
@@ -192,13 +191,11 @@ display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center; 
-    margin: 50px;
+    margin: 50px 0 2px 0;
     font-size: 40px;
-    border-radius: 1000px;
-    width: 300px;
+    width: 100%;
     height: 100px;
-    background-color: lightgreen;
-    box-shadow: 0 0 10px 0 black;
+    background-color: rgba(1, 255, 1, 0.5);
 }
 
 .main-question{
@@ -215,12 +212,11 @@ display: flex;
   flex-direction: column;
     justify-content: center;
     text-align: center; 
-    padding: 0px 20px 0 20px;
+    padding: 50px 20px 50px 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
     font-size: 40px;
-    border-radius: 1000px;
-    height: 75px;
-    background-color: lightgreen;
-    box-shadow: 0 0 10px 0 black;
+    color: blue;
 }
 
 .answers{
@@ -255,8 +251,9 @@ display: flex;
 }
 
 .win{
-  margin: 100px 400px 100px 400px;
-  background-color: blue;
+  margin: 100px 400px 50px 400px;
+  background-color: rgba(1, 255, 1, 0.5);
+  padding: 20px;
   text-align: center;
 
   animation: spin 1.5s;
@@ -264,22 +261,18 @@ display: flex;
 
 @keyframes spin {
   0%{
-    margin: 100px 400px 100px 400px;
     border-radius: 0;
 
   }
   33%{
-    margin: 100px 400px 100px 400px;
     border-radius: 100%;
   }
 
   66%{
-    margin: 100px 400px 100px 400px;
     border-radius: 0;
 
   }
   100%{
-    margin: 100px 400px 100px 400px;
     border-radius: 100%;
   }
 }
