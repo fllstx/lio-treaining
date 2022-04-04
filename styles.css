@@ -5,7 +5,8 @@
     margin: 0;
 }
 
-body{
+.main{
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,11 +26,12 @@ body{
 }
   
 
-.main{
+.list-container{
     width: 100%;
     max-width: 1200px;
     display: flex;
     padding: 0 20px;
+    margin-bottom: 100px;
 }
 
 .picture-list{
