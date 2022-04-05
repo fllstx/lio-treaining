@@ -1,0 +1,90 @@
+* {
+    text-decoration: none;
+    font-family: 'Send Flowers', cursive;
+    padding: 0;
+    margin: 0;
+    color: black;
+}
+
+.main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header{
+    padding: 20px 0;
+    background-color: white;
+    margin-bottom: 20px;
+    width: 100%;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.header-text{
+    margin: 0 20px;
+}
+  
+
+.list-container{
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    padding: 0 20px;
+    margin-bottom: 100px;
+}
+
+.picture-list{
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.picture{
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 50%);
+}
+
+.pic{
+    height: 135px;
+    width: 240px;
+    object-fit: cover;
+}
+
+.picture-text{
+    text-align: center;
+}
+
+
+footer{
+    background-color: rgba(169, 169, 169, 0.5);
+    height: 50px;
+    padding: 0 20px;
+    display: flex;
+}
+
+.footer-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style: none;
+    align-items: center;
+}
+
+.footer-text{
+    color: black;
+    padding: 0 20px;
+}
+
+@media (max-width: 600px) {
+    .footer-list {
+      flex-direction: column;
+    }
+  }
+
+
+
