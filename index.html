@@ -69,6 +69,11 @@
       }
     };
 
+    fetch(src="https://climate-api.fullstax.workers.dev/co2/global/trend").then(Response => {
+      console.log(Response);
+      return Response.json();
+    });
+
     const myChart = new Chart(canvasElement, chartSettings);
   </script>
 </html>
