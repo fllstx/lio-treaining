@@ -14,7 +14,6 @@
       integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
-      fetch="https://climate-api.fullstax.workers.dev/co2/global/trend"
     ></script>
 
     <style>
@@ -69,10 +68,11 @@
       }
     };
 
-    fetch(src="https://climate-api.fullstax.workers.dev/co2/global/trend").then(Response => {
-      console.log(Response);
-      return Response.json();
-    });
+    fetch('https://climate-api.fullstax.workers.dev/co2/global/trend')
+      .then(Response => Response.json())
+      .then(co2DATA => {
+        console.log(co2DATA);
+      });
 
     const myChart = new Chart(canvasElement, chartSettings);
   </script>
