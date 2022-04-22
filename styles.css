@@ -1,0 +1,12 @@
+* {
+    text-decoration: none;
+    color: rgb(75, 75, 75);
+}
+
+.Quelle {
+    text-decoration: none;
+}
+
+.Quelle:hover{
+    color: green;
+}

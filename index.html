@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
     <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="styles.css">
 
     <!-- include the chart.js library using an external CDN (content delivery network) -->
     <script
@@ -28,125 +29,128 @@
     <main class="container">
       <h1>Chart.js example</h1>
       <canvas id="chart1" width="800" height="400"></canvas>
+
+      <script>
+        const canvasElement = document.getElementById('chart1');
+
+        // drawChart
+        function drawchart (climateData){
+          console.log(climateData);
+          
+          const dataFilter = climateData.data
+            .filter(entry =>{
+              return (entry.month == 1)?true:false;
+            });
+
+          console.log(dataFilter);
+
+          const chartData = dataFilter.map(entry => {
+              return {
+                x: `${entry.year}`,
+                y: entry.trend
+              };
+            });
+          console.log(chartData);
+          
+          // changing lineColor
+          let width, height, gradient;
+            function getGradient(ctx, chartArea) {
+              const chartWidth = chartArea.right - chartArea.left;
+              const chartHeight = chartArea.bottom - chartArea.top;
+              if (!gradient || width !== chartWidth || height !== chartHeight) {
+                // Create the gradient because this is either the first render
+                // or the size of the chart has changed
+                width = chartWidth;
+                height = chartHeight;
+                gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+                gradient.addColorStop(0, 'green');
+                gradient.addColorStop(0.5, 'yellow');
+                gradient.addColorStop(1, 'red');
+              }
+
+              return gradient;
+            }
+
+            // animation
+            const totalDuration = 10000;
+            const delayBetweenPoints = totalDuration / chartData.length;
+            const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
+            const animation = {
+              x: {
+                type: 'number',
+                easing: 'linear',
+                duration: delayBetweenPoints,
+                from: NaN, // the point is initially skipped
+                delay(ctx) {
+                  if (ctx.type !== 'data' || ctx.xStarted) {
+                    return 0;
+                  }
+                  ctx.xStarted = true;
+                  return ctx.index * delayBetweenPoints;
+                }
+              },
+              y: {
+                type: 'number',
+                easing: 'linear',
+                duration: delayBetweenPoints,
+                from: previousY,
+                delay(ctx) {
+                  if (ctx.type !== 'data' || ctx.yStarted) {
+                    return 0;
+                  }
+                  ctx.yStarted = true;
+                  return ctx.index * delayBetweenPoints;
+                }
+              }
+            };
+
+          const chartSettings = {
+            type: 'line',
+            data: {
+              datasets: [{
+                label: 'climatic development in 2000 years',
+                data: chartData,
+                borderWidth: 1,
+                radius: 0,
+                borderColor: function(context) {
+                  const chart = context.chart;
+                  const {ctx, chartArea} = chart;
+
+                  if (!chartArea) {
+                    // This case happens on initial chart load
+                    return;
+                  }
+                  
+                  return getGradient(ctx, chartArea);
+                }
+              }]
+            },
+            options: {
+              animation,
+              interaction: {
+                intersect: false
+              },
+              plugins: {
+                legend: false
+              },
+              scales: {
+                y: {
+                  beginAtZero: false
+                }
+              }
+            }
+          };
+          const myChart = new Chart(canvasElement, chartSettings);
+        }
+
+        fetch('https://climate-api.fullstax.workers.dev/co2/global/history')
+          .then(Response => Response.json())
+          .then(co2DATA => {
+            drawchart(co2DATA);
+          });
+      </script>
+
+      <a class=Quelle href="https://climate-api.fullstax.workers.dev/co2/global/history">Quelle</a>
     </main>
   </body>
-  <script>
-    const canvasElement = document.getElementById('chart1');
-
-    // drawChart
-    function drawchart (climateData){
-      console.log(climateData);
-      
-      const dataFilter = climateData.data
-        .filter(entry =>{
-          return (entry.month == 1)?true:false;
-        });
-
-      console.log(dataFilter);
-
-      const chartData = dataFilter.map(entry => {
-          return {
-            x: `${entry.year}`,
-            y: entry.trend
-          };
-        });
-       console.log(chartData);
-       
-       // changing lineColor
-       let width, height, gradient;
-        function getGradient(ctx, chartArea) {
-          const chartWidth = chartArea.right - chartArea.left;
-          const chartHeight = chartArea.bottom - chartArea.top;
-          if (!gradient || width !== chartWidth || height !== chartHeight) {
-            // Create the gradient because this is either the first render
-            // or the size of the chart has changed
-            width = chartWidth;
-            height = chartHeight;
-            gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-            gradient.addColorStop(0, 'green');
-            gradient.addColorStop(0.5, 'yellow');
-            gradient.addColorStop(1, 'red');
-          }
-
-          return gradient;
-        }
-
-        // animation
-        const totalDuration = 10000;
-        const delayBetweenPoints = totalDuration / chartData.length;
-        const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
-        const animation = {
-          x: {
-            type: 'number',
-            easing: 'linear',
-            duration: delayBetweenPoints,
-            from: NaN, // the point is initially skipped
-            delay(ctx) {
-              if (ctx.type !== 'data' || ctx.xStarted) {
-                return 0;
-              }
-              ctx.xStarted = true;
-              return ctx.index * delayBetweenPoints;
-            }
-          },
-          y: {
-            type: 'number',
-            easing: 'linear',
-            duration: delayBetweenPoints,
-            from: previousY,
-            delay(ctx) {
-              if (ctx.type !== 'data' || ctx.yStarted) {
-                return 0;
-              }
-              ctx.yStarted = true;
-              return ctx.index * delayBetweenPoints;
-            }
-          }
-        };
-
-      const chartSettings = {
-        type: 'line',
-        data: {
-          datasets: [{
-            label: 'climatic development in 2000 years',
-            data: chartData,
-            borderWidth: 1,
-            radius: 0,
-            borderColor: function(context) {
-              const chart = context.chart;
-              const {ctx, chartArea} = chart;
-
-              if (!chartArea) {
-                // This case happens on initial chart load
-                return;
-              }
-              
-              return getGradient(ctx, chartArea);
-            }
-          }]
-        },
-        options: {
-          animation,
-          interaction: {
-            intersect: false
-          },
-          plugins: {
-            legend: false
-          },
-          scales: {
-            y: {
-              beginAtZero: false
-            }
-          }
-        }
-      };
-      const myChart = new Chart(canvasElement, chartSettings);
-    }
-
-    fetch('https://climate-api.fullstax.workers.dev/co2/global/history')
-      .then(Response => Response.json())
-      .then(co2DATA => {
-        drawchart(co2DATA);
-      });
-  </script>
 </html>
