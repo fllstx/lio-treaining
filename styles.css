@@ -1,6 +1,16 @@
 * {
     text-decoration: none;
     color: rgb(75, 75, 75);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.chartFooter{
+    display: flex;
+    justify-content: space-between;
+}
+
+.chartListelem{
+    display: flex;
 }
 
 .Quelle {
@@ -10,3 +20,4 @@
 .Quelle:hover{
     color: green;
 }
+
