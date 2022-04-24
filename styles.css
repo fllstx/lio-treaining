@@ -4,12 +4,31 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+html {
+    background: url(https://live.staticflickr.com/553/19546042182_d8aa165744_h.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-attachment: fixed;
+    }
+
+.container{
+    background-color: rgb(255, 255, 255);
+    Padding: 20px;
+    box-shadow: 0 0 10px 0 rgba(0 0 0/ 50%);
+}
+
 .chartFooter{
     display: flex;
     justify-content: space-between;
 }
 
 .chartListelem{
+    display: flex;
+}
+
+.chartQuelle{
     display: flex;
 }
 
