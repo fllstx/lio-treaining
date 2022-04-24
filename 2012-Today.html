@@ -62,14 +62,20 @@
           //Sourceelem.innerLink = climateData.meta.info;
           //Ich hab keine Ahnung wie ich den Link mit javascript aus den Metadaten nehmen soll
 
-          const chartData = climateData.data.map(entry => {
+          const dataFilter = climateData.data
+            .filter(entry =>{
+              return (entry.month == 1)?true:false;
+            });
+
+          console.log(dataFilter);
+
+          const chartData = dataFilter.map(entry => {
               return {
                 x: `${entry.year}`,
                 y: entry.trend
               };
             });
           console.log(chartData);
-          
 
           // changing lineColor
           let width, height, gradient;
@@ -91,7 +97,7 @@
             }
 
             // animation
-            const totalDuration = 10000;
+            const totalDuration = 4000;
             const delayBetweenPoints = totalDuration / chartData.length;
             const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
             const animation = {
@@ -162,35 +168,11 @@
           const myChart = new Chart(canvasElement, chartSettings);
         }
 
-        const climateDatas = Promise.all([
-          fetch('https://climate-api.fullstax.workers.dev/co2/global/history')
-          .then(Response => Response.json()),
-
-          fetch('https://climate-api.fullstax.workers.dev/co2/global/trend')
+        fetch('https://climate-api.fullstax.workers.dev/co2/global/trend')
           .then(Response => Response.json())
-        ])
-        .then(climateDatas => {
-          const historyData = climateDatas[0];
-          const trendData = climateDatas[1];
-
-          const climateData = new Map();
-          historyData.data.forEach(entry => {
-            climateData.set(entry.year,entry.trend);
+          .then(co2DATA2 => {
+            drawchart(co2DATA2);
           });
-		      trendData.data.forEach((entry) => {
-			      climateData.set(entry.year, entry.smoothed);
-		      });
-
-		      const data = Array.from(climateData.entries()).map((entry) => {
-			      return {year:entry[0], trend:entry[1]};
-	      	});
-		      const chartData = {
-			      meta:trendData.meta,
-			      data:data
-		      };
-
-          drawchart(chartData);
-        })
         
       </script>
       <ul class="chartFooter">
