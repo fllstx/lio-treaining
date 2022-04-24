@@ -48,6 +48,10 @@
           const descriptionelem = document.getElementById('chartDescription1');
           descriptionelem.innerText = climateData.meta.description||'';
 
+          //const Sourceelem = document.getElementById('source');
+          //Sourceelem.innerLink = climateData.meta.info;
+          //Ich hab keine Ahnung wie ich den Link mit javascript aus den Metadaten nehmen soll
+
           const chartData = climateData.data.map(entry => {
               return {
                 x: `${entry.year}`,
@@ -183,10 +187,10 @@
         <li class="chartListelem">
           <ul class="chartQuelle">
             <li class="chartQuelleelem">
-              <a class="Quelle" href="https://data.iac.ethz.ch/">Quelle</a>
+              <a class="Quelle" id="source" href="https://data.iac.ethz.ch/">Source</a>
             </li>
             <li class="chartQuelleelem">
-              <a class="Quelle" href="https://data.iac.ethz.ch/">Quelle</a>
+              <a class="Quelle" href="https://usys.ethz.ch/personen/profil.NDk5MTg=.TGlzdC82MzcsMzIwMTk3MjIy.html">Contact</a>
             </li>
           </ul>
          

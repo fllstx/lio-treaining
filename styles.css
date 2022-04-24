@@ -26,10 +26,17 @@ html {
 
 .chartListelem{
     display: flex;
+    padding: 0px 30px 0 0px;
 }
 
 .chartQuelle{
     display: flex;
+    padding: 0;
+}
+
+.chartQuelleelem{
+    display: flex;
+    padding: 0 20px 0 0;
 }
 
 .Quelle {
