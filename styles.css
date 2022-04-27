@@ -5,7 +5,7 @@
 }
 
 html {
-    background: url() no-repeat center center fixed;
+    background-color: rgba(114, 94, 69, 0.795)
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -20,14 +20,17 @@ body{
 /*header*/
 
   header{
-    color: black;
+    color: rgb(190, 190, 190);
     padding: 0 0 20px 0;
   }
 
   nav {
     width: 100%;
-    background-color: white;
+    height: 80px;
+    background-color: rgb(32, 30, 30);
     box-shadow: 0 0 10px 0 rgb(0 0 0/ 50%);
+    display: flex;
+    justify-content: center;
   }
 
   .menu{
@@ -43,25 +46,45 @@ body{
     display: flex;
   }
 
-  .menu li a{
-    color: black;
+  .menulia{
+    color: rgb(180, 180, 180);
     font-size: 24px;
-    padding: 0 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 
   }
 
-  .menu li a:hover{
-    color: darkgray;
+  .menulia:hover{
+    color: rgb(255, 255, 255);
   }
 
   /*header*/
 
+body{
+  background-color: rgba(153, 108, 48, 0.795);
+}
+
+.main{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.mainList{
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+}
+
+.mainElem{
+  display: flex;
+}
+
 .container{
-    background-color: rgb(255, 255, 255);
-    Padding: 20px;
+    background-color: rgba(255, 255, 255, 0.664);
+    padding: 20px;
+    margin: 20px;
     box-shadow: 0 0 10px 0 rgba(0 0 0/ 50%);
 }
 
