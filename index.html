@@ -136,10 +136,12 @@
                   const annotation1 = {
                     type: 'line',
                     borderColor: 'red',
-                    borderWidth: 1,
+                    borderDash: [6, 6],
+                    borderDashOffset: 0,
+                    borderWidth: 3,
                     
                     label: {
-                      content: '1.5º',
+                      content: '+1.5 per yearº',
                       enabled: true
                     },
                     scaleID: 'y',
@@ -149,10 +151,12 @@
                   const annotation2 = {
                     type: 'line',
                     borderColor: 'purple',
-                    borderWidth: 1,
+                    borderDash: [6, 6],
+                    borderDashOffset: 0,
+                    borderWidth: 3,
                     
                     label: {
-                      content: '2º',
+                      content: '+2º per years',
                       enabled: true
                     },
                     scaleID: 'y',
@@ -364,7 +368,7 @@
                   type: 'line',
                   data: {
                     datasets: [{
-                      label: 'climatic development from 2012 years',
+                      label: 'climatic development since 2012',
                       data: chartData,
                       tension: 0.5,
                       borderWidth: 2.5,
