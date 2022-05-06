@@ -460,6 +460,22 @@
           const Sourceelem = document.getElementById('source');
           Sourceelem.href = climateData.meta.info;
 
+
+          function last365Days (climateData.data) {
+            let Days = [];
+            for (let x=dataFilter.length-366; x>dataFilter.length-1; x++){
+              let y=0;
+              Days[y] = dataFilter.data[x];
+              y++;
+              }
+            }
+            return Days;
+          }
+          
+          const dataFilter = last365Days(climateData.data);
+
+          console.log(dataFilter);
+
           const chartData = climateData.data.map(entry => {
               return {
                 x: `${entry.year} ${entry.month} ${entry.day}`,
@@ -572,7 +588,7 @@
             }
           };
           const myChart = new Chart(canvasElement3, chartSettings3);
-        }
+        
 
         fetch('https://climate-api.fullstax.workers.dev/co2/global/trend')
           .then(Response => Response.json())

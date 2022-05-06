@@ -72,13 +72,22 @@ body{
 }
 
 .mainList{
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+  margin-bottom: 100px;
+
   display: flex;
   flex-direction: row;
   padding: 0;
+  flex-wrap: wrap;
 }
 
 .mainElem{
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .container{
