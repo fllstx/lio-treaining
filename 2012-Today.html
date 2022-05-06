@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>chart.js example</title>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+
+    <!-- include the chart.js library using an external CDN (content delivery network) -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
+      integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <style>
+      main {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+    </style>
+
+  </head>
+  <body>
+    <header>
+          
+            
+      <nav>
+      <ul class="menu">
+        <li><a href="index.html">0 - Today</a></li>
+        <li><a href="2012-Today.html">2012 - Today</a></li>
+      </ul>
+    </nav>
+    </header>
+    <main class="container">
+      <h2 id="chartTitle1">Loading...</h2>
+      <p id="chartDescription1">Loading...</p>
+      <canvas id="chart1" width="800" height="400"></canvas>
+
+      <script>
+        const canvasElement = document.getElementById('chart1');
+
+        // drawChart
+        function drawchart (climateData){
+          console.log(climateData);
+          
+          const Titleelem = document.getElementById('chartTitle1');
+          Titleelem.innerText = climateData.meta.title;
+
+          const descriptionelem = document.getElementById('chartDescription1');
+          descriptionelem.innerText = climateData.meta.description||'';
+
+          //const Sourceelem = document.getElementById('source');
+          //Sourceelem.innerLink = climateData.meta.info;
+          //Ich hab keine Ahnung wie ich den Link mit javascript aus den Metadaten nehmen soll
+
+          const dataFilter = climateData.data
+            .filter(entry =>{
+              return (entry.month == 1)?true:false;
+            });
+
+          console.log(dataFilter);
+
+          const chartData = dataFilter.map(entry => {
+              return {
+                x: `${entry.year}`,
+                y: entry.trend
+              };
+            });
+          console.log(chartData);
+
+          // changing lineColor
+          let width, height, gradient;
+            function getGradient(ctx, chartArea) {
+              const chartWidth = chartArea.right - chartArea.left;
+              const chartHeight = chartArea.bottom - chartArea.top;
+              if (!gradient || width !== chartWidth || height !== chartHeight) {
+                // Create the gradient because this is either the first render
+                // or the size of the chart has changed
+                width = chartWidth;
+                height = chartHeight;
+                gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+                gradient.addColorStop(0, 'green');
+                gradient.addColorStop(0.5, 'yellow');
+                gradient.addColorStop(1, 'red');
+              }
+
+              return gradient;
+            }
+
+            // animation
+            const totalDuration = 4000;
+            const delayBetweenPoints = totalDuration / chartData.length;
+            const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
+            const animation = {
+              x: {
+                type: 'number',
+                easing: 'linear',
+                duration: delayBetweenPoints,
+                from: NaN, // the point is initially skipped
+                delay(ctx) {
+                  if (ctx.type !== 'data' || ctx.xStarted) {
+                    return 0;
+                  }
+                  ctx.xStarted = true;
+                  return ctx.index * delayBetweenPoints;
+                }
+              },
+              y: {
+                type: 'number',
+                easing: 'linear',
+                duration: delayBetweenPoints,
+                from: previousY,
+                delay(ctx) {
+                  if (ctx.type !== 'data' || ctx.yStarted) {
+                    return 0;
+                  }
+                  ctx.yStarted = true;
+                  return ctx.index * delayBetweenPoints;
+                }
+              }
+            };
+
+          const chartSettings = {
+            type: 'line',
+            data: {
+              datasets: [{
+                label: 'climatic development in 2000 years',
+                data: chartData,
+                borderWidth: 1,
+                radius: 0,
+                borderColor: function(context) {
+                  const chart = context.chart;
+                  const {ctx, chartArea} = chart;
+
+                  if (!chartArea) {
+                    // This case happens on initial chart load
+                    return;
+                  }
+                  
+                  return getGradient(ctx, chartArea);
+                }
+              }]
+            },
+            options: {
+              animation,
+              interaction: {
+                intersect: false
+              },
+              plugins: {
+                legend: false
+              },
+              scales: {
+                x: {
+                  title: {
+                    display: true,
+                    text: "years"
+                  }
+                },
+                y: {
+                  title: {
+                    display: true,
+                    text: "ppm",
+                  },
+                  beginAtZero: false
+                }
+              }
+            }
+          };
+          const myChart = new Chart(canvasElement, chartSettings);
+        }
+
+        fetch('https://climate-api.fullstax.workers.dev/co2/global/trend')
+          .then(Response => Response.json())
+          .then(co2DATA2 => {
+            drawchart(co2DATA2);
+          });
+        
+      </script>
+      <ul class="chartFooter">
+        <li class="chartListelem">
+          <ul class="chartQuelle">
+            <li class="chartQuelleelem">
+              <a class="Quelle" id="source" href="https://data.iac.ethz.ch/">Source</a>
+            </li>
+            <li class="chartQuelleelem">
+              <a class="Quelle" href="https://usys.ethz.ch/personen/profil.NDk5MTg=.TGlzdC82MzcsMzIwMTk3MjIy.html">Contact</a>
+            </li>
+          </ul>
+         
+        </li>
+        <li class="chartListelem">
+          <a class="Quelle" href="https://fullstax.de/impressum.html">Imprint</a>
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>
